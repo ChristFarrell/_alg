@@ -1,6 +1,6 @@
 # NOTES
 
-## [Homework 1]()
+## [Homework 1](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%201%20090926)
 
 This homework was getting helped by AI for help understanding.<br>
 
@@ -80,7 +80,7 @@ Method 2b (2*power2n(n-1))               Success        0.000029 sec
 Method 3 (recursion + memoization)       Success        0.000076 sec
 ```
 
-## [Homework 2]()
+## [Homework 2](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%202%20160926)
 
 This homework was getting helped by AI for help understanding.<br>
 
