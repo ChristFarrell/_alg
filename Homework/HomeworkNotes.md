@@ -154,7 +154,7 @@ Side-by-side growth comparison (same n for all four)
  
 # [Homework 3](https://github.com/ChristFarrell/_alg/blob/main/Homework/Homework%203%20230926/SAT.py)
 
-This homework was getting helped by AI for help understanding.<br>
+This homework was getting helped by AI Opencode for understanding.<br>
 
 On this homework, we asked to solves SAT for Boolean formulas. It uses Truth Table Generation to exhaustively test all $2^n$ possible truth assignments for $n$ boolean variables and checks if at least one assignment satisfies the formula.
 
