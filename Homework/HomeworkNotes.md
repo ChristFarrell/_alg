@@ -308,6 +308,7 @@ Iteration 05: x = 2.250004 | Change = 0.002238
 Iteration 06: x = 2.250000 | Change = 0.000004
 --> Newton's Method converged!
 ```
+In conclusion, Newton's Method is far smarter and more efficient, as it can account for the graph's "curvature" to calculate the perfect step size, whereas Gradient Descent still takes a long time to reach the same point.
 
 On the second homework, there explain more variation of iterative method. At the end it shows of sophisticated algorithms from various fields are built upon the exact same basic framework: Guess ➔ Update ➔ Check for stability (convergence) ➔ Repeat.<br>
 
