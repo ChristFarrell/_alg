@@ -1,3 +1,5 @@
+# EXPLANATION: https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%204%20300926 #
+
 import numpy as np
 
 # =====================================================================
