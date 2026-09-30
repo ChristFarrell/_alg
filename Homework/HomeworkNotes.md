@@ -222,7 +222,8 @@ On this homework, we asked to solves SAT for Boolean formulas. It uses Truth Tab
 
 # [Homework 4](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%204%20300926)
 
-This homework was getting helped by AI Opencode for understanding.<br>
+This homework was getting helped by AI Gemini for understanding.<br>
+AI Gemini: https://share.gemini.google/T74Hwf3agvLY 
 
 On the first homework, we asked to solves iterative method. The way to solve it is by repeating the steps one by one to gradually approach the correct answer. specifically, we use the Gradient Descent algorithm on the equation $$f(x) = x^4 - 3x^3 + 2$$.
 It is designed to find the local minimum of a mathematical function by iteratively moving in the direction of steepest descent.<br>
@@ -239,7 +240,9 @@ change = abs(new_x - x)
 
 At the end, the result of equation was printed:
 ```
-Running Gradient Descent Algorithm:
+==================================================
+ ALGORITHM 1: GRADIENT DESCENT
+==================================================
 Iteration 01: x = 2.880000 | Change = 1.120000
 Iteration 02: x = 2.670981 | Change = 0.209019
 Iteration 03: x = 2.550848 | Change = 0.120134
@@ -260,6 +263,50 @@ Iteration 17: x = 2.259408 | Change = 0.002421
 Iteration 18: x = 2.257487 | Change = 0.001921
 Iteration 19: x = 2.255961 | Change = 0.001526
 Iteration 20: x = 2.254747 | Change = 0.001213
+```
+
+We also use the Newton's method for optimization is a second-order algorithm that aims to find the stationary point of a function by seeking the root of its first derivative ($f'(x) = 0$). We take of equation $$f''(x) = 12x^2 - 18x$$ (second derivative from main equation)
+```python
+
+for i in range(max_iterations):
+    first_deriv = df(x_nt)
+    second_deriv = ddf(x_nt)
+    
+    if second_deriv == 0:
+        print("Error: Second derivative is zero, cannot divide.")
+        break
+        
+    # Newton's method calculates its own perfect step size using the second derivative
+    x_new = x_nt - (first_deriv / second_deriv)
+    
+    change = abs(x_new - x_nt)
+    x_nt = x_new
+    
+    print(f"Iteration {i+1:02d}: x = {x_nt:.6f} | Change = {change:.6f}")
+    
+    if change < tolerance:
+        print("--> Newton's Method converged!\n")
+        break
+```
+1. The program begins the search from the point $x = 4.0$. This figure will serve as the base value for the first iteration's calculation.
+2. A program to calculate the first and second derivatives.
+3. Using Newton's formula, the result of dividing the first derivative by the second derivative automatically serves as the step size. The old $x$ value is reduced by this quotient to obtain the new $x$ point (x_new).
+4. `change = abs(x_new - x_nt)`: The program calculates the absolute distance between the newly obtained $x$ value and the previous $x$ value. This `change` value is used to assess the significance of the shift that has occurred. 
+5. `x_nt = x_new`: The value of the variable $x$ is updated to the new $x$ value so that it can be used for calculations in the next iteration.
+6. Evaluation stop condition.
+
+At the end, the result of equation was printed:
+```
+==================================================
+ ALGORITHM 2: NEWTON'S METHOD FOR OPTIMIZATION
+==================================================
+Iteration 01: x = 3.066667 | Change = 0.933333
+Iteration 02: x = 2.533806 | Change = 0.532861
+Iteration 03: x = 2.301941 | Change = 0.231865
+Iteration 04: x = 2.252243 | Change = 0.049699
+Iteration 05: x = 2.250004 | Change = 0.002238
+Iteration 06: x = 2.250000 | Change = 0.000004
+--> Newton's Method converged!
 ```
 
 On the second homework, there explain more variation of iterative method. At the end it shows of sophisticated algorithms from various fields are built upon the exact same basic framework: Guess ➔ Update ➔ Check for stability (convergence) ➔ Repeat.<br>
@@ -292,17 +339,17 @@ def generic_iterator(transition_func, is_converged, initial_state, max_iter=1000
 - is_converged: A stopping rule (determining when the guess is considered accurate or no longer changing).
 
 The second part of the code demonstrates that the abstract framework described above can be used to implement nine well-known algorithms with widely varying functions:
-| # | Algorithm Name | What it Solves (The Problem) | 
+| | Algorithm Name | What it Solves (The Problem) | 
 | :--- | :--- | :--- | 
-| **1** | **Fixed-Point Iteration** | Finds a point where the input of a function exactly equals its output ($x = g(x)$). | 
-| **2** | **Newton's Method** | Finds the roots (zeroes) of a mathematical function (e.g., finding where $x^2 - 4 = 0$). | 
-| **3** | **Gauss-Seidel** | Solves large, complex systems of linear equations (finding variables in $Ax = b$) step-by-step. | 
-| **4** | **Power Iteration** | Finds the dominant (largest) eigenvalue and its corresponding eigenvector of a matrix. | 
-| **5** | **QR Algorithm** | Calculates *all* the eigenvalues of a matrix simultaneously. | 
-| **6** | **Runge-Kutta (RK4)** | Solves Ordinary Differential Equations (ODEs) to predict how a system changes over time. | 
-| **7** | **PageRank** | Calculates the relative importance of nodes in a network based on the links connecting them. | 
-| **8** | **K-Means Clustering** | Groups unlabelled data points into *K* distinct clusters based on their distance from a center point. |  
-| **9** | **EM Algorithm**<br>*(Expectation-Maximization)* | Estimates hidden or missing parameters in a statistical model (like guessing the bias of two mixed-up coins). |
+| **1** | Fixed-Point Iteration | Finds a point where the input of a function exactly equals its output ($x = g(x)$). | 
+| **2** | Newton's Method | Finds the roots (zeroes) of a mathematical function (e.g., finding where $x^2 - 4 = 0$). | 
+| **3** | Gauss-Seidel | Solves large, complex systems of linear equations (finding variables in $Ax = b$) step-by-step. | 
+| **4** | Power Iteration | Finds the dominant (largest) eigenvalue and its corresponding eigenvector of a matrix. | 
+| **5** | QR Algorithm | Calculates *all* the eigenvalues of a matrix simultaneously. | 
+| **6** | Runge-Kutta (RK4) | Solves Ordinary Differential Equations (ODEs) to predict how a system changes over time. | 
+| **7** | PageRank | Calculates the relative importance of nodes in a network based on the links connecting them. | 
+| **8** | K-Means Clustering | Groups unlabelled data points into *K* distinct clusters based on their distance from a center point. |  
+| **9** | EM Algorithm| Estimates hidden or missing parameters in a statistical model (like guessing the bias of two mixed-up coins). |
 
 1. Fixed Point Iteration
    A pure mathematical algorithm for finding a point where the input value equals the output value (a fixed point).
