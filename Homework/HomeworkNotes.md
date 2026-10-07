@@ -530,7 +530,7 @@ THe main component of code are:
 
 2. _smart_binop(op, u, v): An internal helper that performs real-time simplification (eliminating redundant nodes such as x * 0, 1 * x, or x + 0).
 
-At the end, the result was printed:
+At the end, the result was printed with pure mathemathical structure:
 ```
 f(x)   = ('+', ('**', 'x', 2), ('*', 3, 'x'))
 f'(x)  = ('+', ('*', 2, 'x'), 3)
