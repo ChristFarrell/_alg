@@ -482,15 +482,15 @@ During the code itself, It have some part of rules:
    from_idx = disk_pos[disk]
 
    if disk % 2 == 1:
-      to_idx = (from_idx + 1) % 3  # Piringan Ganjil: Maju 1 langkah
+      to_idx = (from_idx + 1) % 3  
    else:
-      to_idx = (from_idx + 2) % 3  # Piringan Genap: Mundur 1 langkah
+      to_idx = (from_idx + 2) % 3 
 
    disk_pos[disk] = to_idx
    ```
    - Initial Location (from_idx): Disc 2 is currently on the Pole 0 (Pole A).
    - Odd/Even Check: disk = 2 is Even.
-   - Calculate the Goal Post (to_idx), where: $\text{to\_idx} = (0 + 2) \pmod 3 = 2 \quad \text{(B pole)}$
+   - Calculate the Goal Post (to_idx), where: `to_idx = (0 + 2) % 3 = 2` (B pole)
    - Result: Disc 2 is updated to position 2(Pole B). Output: Move disk 2 from A to B.
 
 At the end, the result was printed:
