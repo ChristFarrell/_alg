@@ -28,8 +28,7 @@ def my_reduce(func, lst, initial=None):
 
 def bubble_pass(lst):
     """
-    Inner recursive pass (replaces the inner loop):
-    Compares adjacent elements and bubbles the largest value to the right.
+    Inner recursive pass (replaces the inner loop)
     """
     if len(lst) <= 1:
         return lst
@@ -48,7 +47,6 @@ def bubble_pass(lst):
 def bubble_sort(lst, n=None):
     """
     Outer recursive pass (replaces the outer loop):
-    Invokes bubble_pass n times until the list is fully sorted.
     """
     if n is None:
         n = len(lst)
@@ -61,11 +59,6 @@ def bubble_sort(lst, n=None):
     
     # Recursively execute remaining passes
     return bubble_sort(lst_after_pass, n - 1)
-
-
-# =====================================================================
-# TESTING EXAMPLES
-# =====================================================================
 
 if __name__ == "__main__":
     print("=== 1. Testing my_map, my_filter, my_reduce ===")

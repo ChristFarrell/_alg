@@ -418,10 +418,10 @@ The second part of the code demonstrates that the abstract framework described a
    結果: 估計硬幣機率 Theta_A = 0.7968, Theta_B = 0.5196 (耗時 16 次迭代)
    ```
 
-# [Homework 5]()
+# [Homework 5](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%205%20071026)
 
 This homework was getting helped by AI Gemini for understanding.<br>
-AI Gemini: https://share.gemini.google/T74Hwf3agvLY 
+AI Gemini: https://share.gemini.google/dEAhx6n5rP3z
 
 On the first homework, we asked to finish The Tower of Hanoi using recursion. The rules are:<br>
 1. Only one disk can be moved at a time.
@@ -529,3 +529,27 @@ THe main component of code are:
 1. sym_diff(expr, var): A primary recursive function that breaks down complex expressions into smaller sub-expressions and then applies differentiation rules based on the operators involved.
 
 2. _smart_binop(op, u, v): An internal helper that performs real-time simplification (eliminating redundant nodes such as x * 0, 1 * x, or x + 0).
+
+At the end, the result was printed:
+```
+f(x)   = ('+', ('**', 'x', 2), ('*', 3, 'x'))
+f'(x)  = ('+', ('*', 2, 'x'), 3)
+----------------------------------------
+g(x)   = ('sin', ('**', 'x', 2))
+g'(x)  = ('*', ('cos', ('**', 'x', 2)), ('*', 2, 'x'))
+```
+
+On third homework, we asked to replaces all conventional looping mechanisms (for / while) with Recursion (Recursive Approach). During map, filter, and reduce implementation, there are 3 main functions.
+
+1. my_map, apply the function to the head, then combine it (+) with the result of the recursion on the tail. If the list is empty (not lst), return [].
+2. my_filter, Check if the head satisfies the predicate. If True, keep the head plus the result of the recursive call on the tail; if False, take only the result of the recursive call on the tail. If the list is empty (not lst), return [].
+3. my_reduce, accumulates values ​​from left to right. Passes the intermediate accumulated result `func(initial, head)` as the new `initial` for the next recursion (Tail Recursion). If the list is empty (`not lst`), returns `initial`.
+
+ON the bubble sort, we use Inner Pass and Outer Pass
+1. Inner Pass (bubble_pass)
+   - Compares two adjacent elements: head (element 1) and second (element 2). 
+   - If head > second, their positions are swapped, and the larger element continues to "bubble" to the right via recursion on the remainder of the list. 
+   - At the end of one pass, the largest element is guaranteed to be in the rightmost position.
+2. Outer Pass (bubble_sort)
+   - Call `bubble_pass` $n$ times. 
+   - Each time a pass is completed, the parameter $n$ is decremented by 1 ($n - 1$) until the entire list is perfectly sorted.
