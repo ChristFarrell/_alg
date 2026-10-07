@@ -553,3 +553,16 @@ ON the bubble sort, we use Inner Pass and Outer Pass
 2. Outer Pass (bubble_sort)
    - Call `bubble_pass` $n$ times. 
    - Each time a pass is completed, the parameter $n$ is decremented by 1 ($n - 1$) until the entire list is perfectly sorted.
+
+At the end, the result was printed:
+```
+=== 1. Testing my_map, my_filter, my_reduce ===
+Input List:     [1, 2, 3, 4, 5, 6]
+my_map (^2):    [1, 4, 9, 16, 25, 36]
+my_filter (evens): [2, 4, 6]
+my_reduce (sum):   21
+
+=== 2. Testing Bubble Sort (Loop-free) ===
+Before Sort:    [64, 34, 25, 12, 22, 11, 90]
+After Sort:     [11, 12, 22, 25, 34, 64, 90]
+```
