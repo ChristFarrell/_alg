@@ -619,11 +619,7 @@ Result Explanation
    Step 4: (λx. (λy. y))
    Status: Normal Form (Evaluation Complete)
    ```
-   The definitions:
-
-   $$
-   \text{TRUE} = \lambda x. \lambda y. x \qquad \text{FALSE} = \lambda x. \lambda y. y \qquad \text{AND} = \lambda p. \lambda q. p \ q \ p
-   $$
+   The definitions: $\text{TRUE} = \lambda x. \lambda y. x \qquad \text{FALSE} = \lambda x. \lambda y. y \qquad \text{AND} = \lambda p. \lambda q. p \ q \ p$
    
    - ((λp. (λq. ((p q) p))) (λx. (λy. x))) is evaluated $\to$ $p$ is replaced by TRUE.
    - The second argument FALSE is passed into $q$.
@@ -640,11 +636,7 @@ Result Explanation
    Step 3: (λf. (λx. (f (f x))))
    Status: Normal Form (Evaluation Complete)
    ```
-   The definitions:
-
-   $$
-   \text{ONE} = \lambda f. \lambda x. f \ x \qquad \text{SUCC} = \lambda n. \lambda f. \lambda x. f \ (n \ f \ x)
-   $$
+   The definitions: $\text{ONE} = \lambda f. \lambda x. f \ x \qquad \text{SUCC} = \lambda n. \lambda f. \lambda x. f \ (n \ f \ x)$
    
    - SUCC receives ONE as the argument $n$.
    - Parameter $n$ inside the body of SUCC is replaced by ONE.
