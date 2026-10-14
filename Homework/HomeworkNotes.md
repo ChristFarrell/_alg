@@ -567,7 +567,7 @@ Before Sort:    [64, 34, 25, 12, 22, 11, 90]
 After Sort:     [11, 12, 22, 25, 34, 64, 90]
 ```
 
-# [Homework 6]()
+# [Homework 6](https://github.com/ChristFarrell/_alg/blob/main/Homework/Homework%206%20141026/LambdaCalculus.py)
 
 This homework was getting helped by AI Gemini for understanding.<br>
 AI Gemini: https://share.gemini.google/l9WfqheZCA1o
