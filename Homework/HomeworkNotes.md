@@ -620,6 +620,7 @@ Result Explanation
    Status: Normal Form (Evaluation Complete)
    ```
    The definitions:
+
    $$
    \text{TRUE} = \lambda x. \lambda y. x \qquad \text{FALSE} = \lambda x. \lambda y. y \qquad \text{AND} = \lambda p. \lambda q. p \ q \ p
    $$
@@ -640,9 +641,11 @@ Result Explanation
    Status: Normal Form (Evaluation Complete)
    ```
    The definitions:
+
    $$
    \text{ONE} = \lambda f. \lambda x. f \ x \qquad \text{SUCC} = \lambda n. \lambda f. \lambda x. f \ (n \ f \ x)
    $$
+   
    - SUCC receives ONE as the argument $n$.
    - Parameter $n$ inside the body of SUCC is replaced by ONE.
    - Evaluation continues until the expression forms two applications of function $f$: $f(f(x))$.
