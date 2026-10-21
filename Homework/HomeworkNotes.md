@@ -675,7 +675,7 @@ Second, we do non-dynamic progamming, by using Seed-and-Extend Algorithm. Seed-a
 3. Diagonal Clustering (Step 3): Hits are grouped by diagonal index, calculated as: 
 
 $$
-\text{diagonal} = \text{database\_position} - \text{query\_position}
+\text{diagonal} = \text{database position} - \text{query position}
 $$
 
    Real alignments yield multiple hits aligned on the same diagonal, whereas random hits scatter across different diagonals.
