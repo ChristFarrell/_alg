@@ -653,6 +653,7 @@ On this homework, we asked to make comparison program from dynamic progamming an
 
 2. Matrix Filling (Recurrence Relation):
    Every cell $H[i][j]$ is calculated based on its three immediate neighbors, Setting negative values to 0 allows local alignments to start anywhere without penalty from bad preceding sequences:
+
    $$
    H[i][j] = \max \begin{cases} 
    0 \\ 
@@ -671,7 +672,7 @@ Second, we do non-dynamic progamming, by using Seed-and-Extend Algorithm. Seed-a
 
 2. Seed Matching (Step 2): The query sequence is scanned for $k$-mers. When a match is found in the database index, a "seed" is formed.
 
-3. Diagonal Clustering (Step 3): Hits are grouped by diagonal index, calculated as:$$\text{diagonal} = \text{database\_position} - \text{query\_position}$$Real alignments yield multiple hits aligned on the same diagonal, whereas random hits scatter across different diagonals.
+3. Diagonal Clustering (Step 3): Hits are grouped by diagonal index, calculated as: $$\text{diagonal} = \text{database\_position} - \text{query\_position}$$ Real alignments yield multiple hits aligned on the same diagonal, whereas random hits scatter across different diagonals.
 
 4. X-Drop Extension (Step 4): Each seed is extended left and right along its diagonal base-by-base:
    - Score improves: Keep extending and update the best score.
