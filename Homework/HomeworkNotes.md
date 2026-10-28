@@ -932,7 +932,7 @@ $$
 P = e^{-\frac{\Delta}{T}}
 $$
 
-      (Where $T$ is the current temperature).
+      Where $T$ is the current temperature.
    - Decision (If-Else):<br>
       a. If $\Delta < 0$ $\to$ ACCEPT immediately.<br> 
       b. If $\Delta > 0$ $\to$ Generate a random number $r \in [0, 1]$. If $r < P$, ACCEPT it anyway, even though it is worse!
@@ -998,7 +998,7 @@ $$
 \Theta_{\text{new}} = \Theta_{\text{old}} - \text{learning\_rate} \times \nabla L
 $$
 
-      (Adjusts the values ​​in $\Theta$ in a direction that minimizes the total route distance).
+      Adjusts the values ​​in $\Theta$ in a direction that minimizes the total route distance.
    - Converts the relaxed probability matrix back into a definitive (discrete) sequence of city visits.
    Result:
    ```
