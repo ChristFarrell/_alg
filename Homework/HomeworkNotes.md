@@ -855,9 +855,9 @@ On this homework, given a set of $n$ cities and a symmetric distance matrix $D \
    - Select two pairs of paths—for example, the paths from city $a \to b$ and $c \to d$
    - The formula for the change in distance ($\Delta$) is: 
 
-   $$
-   \Delta = (D_{a,c} + D_{b,d}) - (D_{a,b} + D_{c,d})
-   $$
+$$
+\Delta = (D_{a,c} + D_{b,d}) - (D_{a,b} + D_{c,d})
+$$
 
       (In other words: the distance of the new paths minus the distance of the original paths)
    - Decision (If-Else): <br>
@@ -900,9 +900,9 @@ On this homework, given a set of $n$ cities and a symmetric distance matrix $D \
    - Calculate the distance of the new route, $L_{\text{new}}$.
    - Evaluate all possible neighboring swaps, then choose the swap that results in the shortest distance: 
       
-      $$
-      \text{Best Route} = \arg\min (L_{\text{new}})
-      $$
+$$
+\text{Best Route} = \arg\min (L_{\text{new}})
+$$
 
    - Decision (If-Else): <br>
       a. If $L_{\text{new}} < L_{\text{old}}$, move to the new route. <br>
