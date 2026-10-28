@@ -998,7 +998,7 @@ $$
 \Theta_{\text{new}} = \Theta_{\text{old}} - \text{learning rate} \times \nabla L
 $$
 
-   Adjusts the values ​​in $\Theta$ in a direction that minimizes the total route distance.
+      Adjusts the values ​​in $\Theta$ in a direction that minimizes the total route distance.
    - Converts the relaxed probability matrix back into a definitive (discrete) sequence of city visits.
    Result:
    ```
