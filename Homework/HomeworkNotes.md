@@ -1034,7 +1034,6 @@ $$
 
    - Move to city $j$, remove $j$ from the list $U$, and repeat the process until all cities have been visited. 
    - Return to the starting city to close the route loop.
-   
    Result:
    ```
    ==============================================================================
