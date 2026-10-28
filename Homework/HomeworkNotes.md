@@ -859,7 +859,7 @@ $$
 \Delta = (D_{a,c} + D_{b,d}) - (D_{a,b} + D_{c,d})
 $$
 
-      (In other words: the distance of the new paths minus the distance of the original paths)
+      In other words: the distance of the new paths minus the distance of the original paths
    - Decision (If-Else): <br>
       a. If $\Delta < 0$ (meaning the new route is shorter), reverse the order of the cities between $b$ and $c$.<br>
       b. If $\Delta \ge 0$, take no action. Repeat this process (sweep) until no further instances of $\Delta < 0$ remain.
@@ -928,9 +928,9 @@ $$
    - Generate a new route proposal using the 2-opt method, and calculate the difference in distance: $\Delta = L_{\text{new}} - L_{\text{old}}$.
    - Metropolis Probability Formula ($P$): If the new route is worse ($\Delta > 0$), calculate the probability of accepting this inferior route: 
       
-      $$
-      P = e^{-\frac{\Delta}{T}}
-      $$
+$$
+P = e^{-\frac{\Delta}{T}}
+$$
 
       (Where $T$ is the current temperature).
    - Decision (If-Else):<br>
@@ -938,9 +938,9 @@ $$
       b. If $\Delta > 0$ $\to$ Generate a random number $r \in [0, 1]$. If $r < P$, ACCEPT it anyway, even though it is worse!
    - Cooling Formula: 
 
-      $$
-      T = T \times \alpha \quad (\text{e.g., } \alpha = 0.995)
-      $$
+$$
+T = T \times \alpha \quad (\text{e.g., } \alpha = 0.995)
+$$
 
       As the temperature $T$ decreases, the value of $P$ approaches 0, making it increasingly rare to accept an inferior route.
    Result:
@@ -994,9 +994,9 @@ $$
    - Transforms a matrix of arbitrary values ​​($\Theta$) into a doubly stochastic matrix (where the sum of each row and each column is always 1)
    - Gradient Update Formula: 
    
-      $$
-      \Theta_{\text{new}} = \Theta_{\text{old}} - \text{learning\_rate} \times \nabla L
-      $$
+$$
+\Theta_{\text{new}} = \Theta_{\text{old}} - \text{learning\_rate} \times \nabla L
+$$
 
       (Adjusts the values ​​in $\Theta$ in a direction that minimizes the total route distance).
    - Converts the relaxed probability matrix back into a definitive (discrete) sequence of city visits.
@@ -1028,9 +1028,9 @@ $$
    - Currently at city ($cur$).
    - Find the destination city $j$ from the list of unvisited cities ($U$) that has the smallest distance $D_{cur, j}$: 
 
-      $$
-      \text{Next City} = \arg\min_{j \in U} D_{cur, j}
-      $$
+$$
+\text{Next City} = \arg\min_{j \in U} D_{cur, j}
+$$
 
    - Move to city $j$, remove $j$ from the list $U$, and repeat the process until all cities have been visited. 
    - Return to the starting city to close the route loop.
