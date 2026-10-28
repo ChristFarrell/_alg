@@ -995,7 +995,7 @@ $$
    - Gradient Update Formula: 
    
 $$
-\Theta_{\text{new}} = \Theta_{\text{old}} - \text{learning\_rate} \times \nabla L
+\Theta_{\text{new}} = \Theta_{\text{old}} - \text{learning rate} \times \nabla L
 $$
 
       Adjusts the values ​​in $\Theta$ in a direction that minimizes the total route distance.
