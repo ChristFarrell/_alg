@@ -855,9 +855,10 @@ On this homework, given a set of $n$ cities and a symmetric distance matrix $D \
    - Select two pairs of paths—for example, the paths from city $a \to b$ and $c \to d$
    - The formula for the change in distance ($\Delta$) is: 
 
-      $$
-      \Delta = (D_{a,c} + D_{b,d}) - (D_{a,b} + D_{c,d})
-      $$
+   $$
+   \Delta = (D_{a,c} + D_{b,d}) - (D_{a,b} + D_{c,d})
+   $$
+
       (In other words: the distance of the new paths minus the distance of the original paths)
    - Decision (If-Else): <br>
       a. If $\Delta < 0$ (meaning the new route is shorter), reverse the order of the cities between $b$ and $c$.<br>
