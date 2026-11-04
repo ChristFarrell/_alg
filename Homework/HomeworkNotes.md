@@ -1114,22 +1114,7 @@ On this homework, it is a collection of classic computer science puzzles and pat
     ```
 
    In the result, program managed to find a way out in 22 steps.
-   ```
-   @ = mouse   o = stack   · = visited
-
-   ████████████████████
-   ██S       ██* * * ██
-   ██* ████  ██* ██* ██
-   ██* ██* * * * ██* ██
-   ██* ██* ████████* ██
-   ██* * * ██· · ██* ██
-   ██████· ██· ████* ██
-   ██· · · ██· · · * E 
-   ████████████████████
-
-   Path length: 22 steps, cells explored: 33
-   (DFS finds *a* path, not necessarily the shortest)
-   ```
+   <img src="/home/admin123/Farrell/_alg/Homework/Homework 9 041126/gifs/1_maze_dfs.gif" width="1500" alt="Alt text describing the GIF">
 
 2. Wolf, Goat, and Cabbage (BFS)
    This solves a puzzle in which a farmer must transport three items across a river without letting the wolf eat the goat, or the goat eat the cabbage, when left unattended. The computer uses a "Breadth-First Search" (BFS) algorithm to determine the minimum number of safe trips required. The program implements a FIFO (First-In, First-Out) queue system to ensure that route searching is conducted breadth-wise, or level by level. As long as the queue is not empty, the program continuously retrieves and examines the route at the front of the queue (using `popleft()`). If a new, safe branch is discovered from that route, it is added to the back of the queue (using `append()`).
@@ -1168,20 +1153,7 @@ On this homework, it is a collection of classic computer science puzzles and pat
     return steps[::-1], explored
    ```
    In the result, program takes exactly 7 crossings for everyone to reach the other side of the river safely.
-   ```
-   LEFT BANK                                RIVER                                RIGHT BANK
-                                 ~~~~~~~~~~~~~~~~~~~~~~[Boat]   Farmer, Wolf, Goat, Cabbage
-
-   Everyone is safe on the right bank!
-
-   Step 1: Farmer crosses with the goat (left -> right)
-   Step 2: Farmer crosses alone (right -> left)
-   Step 3: Farmer crosses with the wolf (left -> right)
-   Step 4: Farmer crosses with the goat (right -> left)
-   Step 5: Farmer crosses with the cabbage (left -> right)
-   Step 6: Farmer crosses alone (right -> left)
-   Step 7: Farmer crosses with the goat (left -> right)
-   ```
+   <img src="/home/admin123/Farrell/_alg/Homework/Homework 9 041126/gifs/2_wolf_goat_cabbage_bfs.gif" width="1500" alt="Alt text describing the GIF">
 
 3. Eight Queens (DFS / Backtracking)
    The goal is to place 8 chess queens on a board so that none of them can attack each other. The program places them one by one, and if it makes a mistake (queens threaten each other), it goes back (backtracks) and tries a different spot. The program attempts to place queens row by row using `dfs(row)`. Whenever it finds a column position that is safe from attack (`if not attacked`), it places a queen (`board.append(c)`) and proceeds to explore the next row (`dfs(row + 1)`). However, if it reaches a dead end in a subsequent row—meaning no column is safe—the program backtracks by removing the most recently placed queen (`board.pop()`) and then shifts to try a different column in that same row.
@@ -1212,23 +1184,7 @@ On this homework, it is a collection of classic computer science puzzles and pat
    ```
 
    In the result, program found a safe layout and noted that there are a total of 92 possible solutions.
-   ```
-   Q = queen   x = attacked in the next row
-
-   Q · · · · · · · 
-   · · · · Q · · · 
-   · · · · · · · Q 
-   · · · · · Q · · 
-   · · Q · · · · · 
-   · · · · · · Q · 
-   · Q · · · · · · 
-   · · · Q · · · · 
-
-   First solution found!
-
-   Column index per row: [0, 4, 7, 5, 2, 6, 1, 3]
-   Total solutions for 8 queens: 92
-   ```
+   <img src="/home/admin123/Farrell/_alg/Homework/Homework 9 041126/gifs/3_eight_queens_dfs.gif" width="1500" alt="Alt text describing the GIF">
 
 4. NPC Chasing a Player (A Algorithm)
    Mimicking classic game mechanics, the computer employs the "A* (A-Star) algorithm" a highly intelligent and efficient method for calculating the shortest path to a target. During the search, whenever a branch path (nb) is encountered, the program calculates its score and adds it to a priority queue using `heapq.heappush()`. The command `heapq.heappop(heap)` then ensures that the program always selects and prioritizes the route with the lowest total score—the most promising one—first.
@@ -1269,19 +1225,8 @@ On this homework, it is a collection of classic computer science puzzles and pat
    ```
 
    In the result, the terminal displays the NPC recalculating its route as the player moves, ultimately managing to intercept the player on the 20th step.
-   ```                                    
-   ████████████████  ██████████████████  
-   ██·           ██  ██              ██  
-   ██· ████████  ██  ██  ██████████  ██  
-   ██· ██    ██  ██      ██P     ██  ██  
-   ██· ██  ████  ██████████· ██  ██  ██  
-   ██· ██        ██· · · · · ██  ██  ██  
-   ██· ████████████· ██████████  ██  ██  
-   ██· · · · · · · ·             ██      
-                                          
+   <img src="/home/admin123/Farrell/_alg/Homework/Homework 9 041126/gifs/4_npc_chase_astar.gif" width="1500" alt="Alt text describing the GIF">
 
-   The NPC caught the player at t = 20!
-   ```
 
 5. IC Circuit Routing
    This simulates the connection of small wires (nets) on a computer chip. The computer must connect corresponding points (such as pin A to pin A, pin B to pin B) across two different layers, without the wires colliding with one another or running into obstacles. We use the Lee algorithm, a wave expansion technique, from the starting point (S) to the destination point (T).<Br>
@@ -1291,27 +1236,4 @@ On this homework, it is a collection of classic computer science puzzles and pat
    Crucially, in addition to checking the adjacent cells—up, down, left, and right—the search also considers the possibility of transitioning to the opposite layer (represented as `(1 - l, r, c)`), which may provide a shortcut to bypass obstacles. Once this wave of distance values ​​reaches the target point, T, the program ceases its expansion and performs a "back-trace"—retracing the path by following the decreasing distance values ​​back toward S—to map out the shortest possible route for the cable.
 
    In the result, the terminal successfully connected 4 cable lines with a total cable length of 72.
-   ```
-   5c. Multi-net routing with A*  (each routed net blocks the next ones)
-   Layer 0 (horizontal)                  Layer 1 (vertical)
-   · · · · · · · · C o · · · · · ·       · · · · · · · · C o · · · · · · 
-   · A a a a a a a a a a a a o B ·       · A · · · · · · · c · · · o B · 
-   · · · · · · · ██o b b b b b b ·       · · · · · · · ██o c · · · a · · 
-   · · · · · · · ██· · · · ██· · ·       · · · · · · · ██b c · · ██a · · 
-   · D d d d d d ██· · · · · · · ·       · D · · · · · ██b c · · · a · · 
-   · · · ████· d ██· · · · · · · ·       · · · ████· · ██b c · · · a · · 
-   · · · · · · d ██· · · ██· · · ·       · · · · · · · ██b c · ██· a · · 
-   · · · · · · d ██· · · ██· · · ·       · · · · · · · ██b c · ██· a · · 
-   · · · · · · D ██· · · · · · · ·       · · · · · · D ██b c · · · a · · 
-   · · · · · · · ██· · · · · · · ·       · · · · · · · ██b c · · · a · · 
-   · B b b b b b b o · · · · o A ·       · B · · · · · · o c · · · o A · 
-   · · · · · · · · C o · · · · · ·       · · · · · · · · C o · · · · · · 
-
-   Net A: length  24, vias 2, cost 28
-   Net B: length  24, vias 2, cost 29
-   Net C: length  15, vias 2, cost 19
-   Net D: length   9, vias 0, cost 13
-
-   Routed 4/4 nets, total wire length 72, vias 6
-   Legend: UPPERCASE = pins, lowercase = wires, o = via, ██ = macro block
-   ```
+   <img src="/home/admin123/Farrell/_alg/Homework/Homework 9 041126/gifs/5_ic_routing.gif" width="1500" alt="Alt text describing the GIF">
