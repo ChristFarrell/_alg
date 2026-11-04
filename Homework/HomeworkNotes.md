@@ -1068,7 +1068,7 @@ Hill Climbing                length = 2.4039   tour = 0-8-9-6-10-4-2-1-7-3-5-11
 Nearest Neighbor (Greedy)    length = 2.5414   tour = 0-11-5-3-7-2-1-4-10-6-9-8`
 ```
 
-# [Homework 9]()
+# [Homework 9](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%209%20041126)
 
 This homework was getting helped by AI Claude for understanding.<br>
 AI Claude: https://claude.ai/share/3ec24a74-e8f6-41ad-abc5-c7994082fe68
@@ -1284,4 +1284,34 @@ On this homework, it is a collection of classic computer science puzzles and pat
    ```
 
 5. IC Circuit Routing
-   This simulates the connection of small wires (nets) on a computer chip. The computer must connect corresponding points (such as pin A to pin A, pin B to pin B) across two different layers, without the wires colliding with one another or running into obstacles. We use the Lee algorithm, a wave expansion technique, from the starting point (S) to the destination point (T).
+   This simulates the connection of small wires (nets) on a computer chip. The computer must connect corresponding points (such as pin A to pin A, pin B to pin B) across two different layers, without the wires colliding with one another or running into obstacles. We use the Lee algorithm, a wave expansion technique, from the starting point (S) to the destination point (T).<Br>
+   
+   The program begins its search from a starting point, S, and spreads gradually into all available empty spaces—much like ripples expanding in water (as illustrated by the distance values ​​1, 2, etc., radiating from S in the diagram). This expansion is managed using a deque (double-ended queue) to ensure it progresses uniformly, distance by distance (via `q.popleft()` and `q.append()`). <Br>
+   
+   Crucially, in addition to checking the adjacent cells—up, down, left, and right—the search also considers the possibility of transitioning to the opposite layer (represented as `(1 - l, r, c)`), which may provide a shortcut to bypass obstacles. Once this wave of distance values ​​reaches the target point, T, the program ceases its expansion and performs a "back-trace"—retracing the path by following the decreasing distance values ​​back toward S—to map out the shortest possible route for the cable.
+
+   In the result, the terminal successfully connected 4 cable lines with a total cable length of 72.
+   ```
+   5c. Multi-net routing with A*  (each routed net blocks the next ones)
+   Layer 0 (horizontal)                  Layer 1 (vertical)
+   · · · · · · · · C o · · · · · ·       · · · · · · · · C o · · · · · · 
+   · A a a a a a a a a a a a o B ·       · A · · · · · · · c · · · o B · 
+   · · · · · · · ██o b b b b b b ·       · · · · · · · ██o c · · · a · · 
+   · · · · · · · ██· · · · ██· · ·       · · · · · · · ██b c · · ██a · · 
+   · D d d d d d ██· · · · · · · ·       · D · · · · · ██b c · · · a · · 
+   · · · ████· d ██· · · · · · · ·       · · · ████· · ██b c · · · a · · 
+   · · · · · · d ██· · · ██· · · ·       · · · · · · · ██b c · ██· a · · 
+   · · · · · · d ██· · · ██· · · ·       · · · · · · · ██b c · ██· a · · 
+   · · · · · · D ██· · · · · · · ·       · · · · · · D ██b c · · · a · · 
+   · · · · · · · ██· · · · · · · ·       · · · · · · · ██b c · · · a · · 
+   · B b b b b b b o · · · · o A ·       · B · · · · · · o c · · · o A · 
+   · · · · · · · · C o · · · · · ·       · · · · · · · · C o · · · · · · 
+
+   Net A: length  24, vias 2, cost 28
+   Net B: length  24, vias 2, cost 29
+   Net C: length  15, vias 2, cost 19
+   Net D: length   9, vias 0, cost 13
+
+   Routed 4/4 nets, total wire length 72, vias 6
+   Legend: UPPERCASE = pins, lowercase = wires, o = via, ██ = macro block
+   ```
