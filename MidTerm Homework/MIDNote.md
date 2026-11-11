@@ -1,0 +1,17 @@
+# MIDTERM HOMEWORK NOTES
+
+Below was the table explanation of summary the homework from Homework 1 until Homework 9. I'm using Gemini and CLaude to helping for the homework.
+
+| Task Link | Notes Link | Topic | Attendance | 
+| ----- | ----- | ----- | ----- | 
+| [Task 1](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%201%20090926) | [Notes 1](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-1) | Comparison of methods for calculating $2^n$ and their time complexities (Recursive, Memoization, and Built-in)  | <span style="color: green; font-weight: bold;">Present</span> | 
+| [Task 2](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%202%20160926) | [Notes 2](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-2) | Recurrence relations and time complexity analysis | <span style="color: green; font-weight: bold;">Present</span> | 
+| [Task 3](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%203%20230926) | [Notes 3](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-3) | Boolean Satisfiability (SAT) solver using truth table generation | <span style="color: green; font-weight: bold;">Present</span> | 
+| [Task 4](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%204%20300926) | [Notes 4](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-4) | Iterative optimization methods (Gradient Descent, Newton's Method, and General Iterative Framework) | <span style="color: green; font-weight: bold;">Present</span> | 
+| [Task 5](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%205%20071026) | [Notes 5](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-5) | Tower of Hanoi (Recursive & Iterative), Symbolic Differentiation, and Loop-free Functional Programming (Map, Filter, Reduce, Bubble Sort) | <span style="color: green; font-weight: bold;">Present</span> | 
+| [Task 6](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%206%20141026) | [Notes 6](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-6) | Untyped Lambda Calculus interpreter using Normal Order Evaluation | <span style="color: green; font-weight: bold;">Present</span> | 
+| [Task 7](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%207%20211026) | [Notes 7](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-7) | Sequence alignment comparison: Smith-Waterman (Dynamic Programming) vs. Seed-and-Extend (Heuristic) | <span style="color: green; font-weight: bold;">Present</span> | 
+| [Task 8](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%208%20281026) | [Notes 8](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-8) | raveling Salesman Problem (TSP) optimization (2-opt, Hill Climbing, Simulated Annealing, Gradient Descent, and Nearest Neighbor) | <span style="color: green; font-weight: bold;">Present</span> | 
+| [Task 9](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%209%20041126) | [Notes 9](https://github.com/ChristFarrell/_alg/blob/main/Homework/HomeworkNotes.md#homework-9) | Classic puzzle and pathfinding search algorithms (DFS, BFS, Backtracking, A, and Lee's Algorithm) | <span style="color: green; font-weight: bold;">Present</span> | 
+
+<span style="color: green; font-weight: bold;">Present</span> = 來上課、在現場上課
