@@ -3,7 +3,7 @@
 Below was the table explanation of summary the homework from Homework 1 until Homework 9. I'm using Gemini and CLaude to helping for the homework.
 
 | 第幾週 | 習題內容 | 有上課且準時繳交 | 補交 | 附上請假證明 | 作業連結 |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Comparison of methods for calculating $2^n$ and their time complexities (Recursive, Memoization, and Built-in) | [![Present](https://img.shields.io/badge/Present-%2322c55e?style=flat)](https://github.com/ccc115a/_alg/issues/3) | 是 | | [Task 1](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%201%20090926) |
 | 2 | Recurrence relations and time complexity analysis | [![Present](https://img.shields.io/badge/Present-%2322c55e?style=flat)](https://github.com/ccc115a/_alg/issues/4) | 是 | | [Task 2](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%202%20160926) |
 | 3 | Boolean Satisfiability (SAT) solver using truth table generation | [![Present](https://img.shields.io/badge/Present-%2322c55e?style=flat)](https://github.com/ccc115a/_alg/issues/5) | 是 | | [Task 3](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%203%20230926) |
