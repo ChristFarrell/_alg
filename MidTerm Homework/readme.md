@@ -4,7 +4,7 @@ Below was the table explanation of summary the homework from Homework 1 until Ho
 
 | 第幾週 | 習題內容 | 有上課且準時繳交 | 補交 | 附上請假證明 | 作業連結 |
 | :---: | :--- | :---: | :---: | :---: | :---: |
-| 1 | 查表法 | 是 [![Present](https://img.shields.io/badge/Present-%2322c55e?style=flat)](https://github.com/ccc115a/_alg/issues/3) |  |  | [Task 1](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%201%20090926) |
+| 1 | 查表法 | 是 [![Present](https://img.shields.io/badge/Present-%2322c55e?style=flat)](https://github.com/ccc115a/_alg/issues/3#issuecomment-5776446197) |  |  | [Task 1](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%201%20090926) |
 | 2 | 複雜度 | 是 [![Present](https://img.shields.io/badge/Present-%2322c55e?style=flat)](https://github.com/ccc115a/_alg/issues/4) |  |  | [Task 2](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%202%20160926) |
 | 3 | 列舉+暴力 | 是 [![Present](https://img.shields.io/badge/Present-%2322c55e?style=flat)](https://github.com/ccc115a/_alg/issues/5) |  |  | [Task 3](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%203%20230926) |
 | 4 | 迭代法 | 是 [![Present](https://img.shields.io/badge/Present-%2322c55e?style=flat)](https://github.com/ccc115a/_alg/issues/6) |  |  | [Task 4](https://github.com/ChristFarrell/_alg/tree/main/Homework/Homework%204%20300926) |
