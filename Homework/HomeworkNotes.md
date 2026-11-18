@@ -1238,10 +1238,10 @@ On this homework, it is a collection of classic computer science puzzles and pat
    In the result, the terminal successfully connected 4 cable lines with a total cable length of 72.
    <img src="Homework%209%20041126/gifs/5_ic_routing.gif" width="1500" alt="Alt text describing the GIF">
 
-# [Homework 10]()
+# [Homework 11](https://github.com/ChristFarrell/_alg/blob/main/Homework/Homework%2011%20181126/NumMorteCalculus.py)
 
 This homework was getting helped by AI Claude for understanding.<br>
-AI Claude: 
+AI Claude: https://claude.ai/share/0dab51b5-dfd6-4cf2-9261-20a0a7ce8449
 
 On this homework, wecompares two approaches in numerical calculus (for derivatives and integrals): 
 - Deterministic Methods (Grid/Finite Difference) divide the space into regular segments. They are highly accurate in low dimensions (1D) but become unfeasible in high dimensions due to an exponential explosion in the number of points (the "curse of dimensionality"). 
