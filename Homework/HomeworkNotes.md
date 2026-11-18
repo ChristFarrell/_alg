@@ -1364,6 +1364,7 @@ So in conlusion:
 - 1D: The deterministic method (Simpson’s rule) is far more accurate than Monte Carlo. 
 - 3D: Both remain fast and accurate, even though the grid now requires $20^3 = 8,000$ evaluations. 
 - 10D: The grid-based method becomes infeasible ($20^{10}$ points), whereas Monte Carlo continues to perform efficiently using the same number of samples ($200,000$ points).
+- Riemann sums work accurately in low dimensions offering high precision in 1D and 2D but, much like grid-based approaches, they fail to provide solutions in high dimensions. In contrast, Monte Carlo methods, when utilizing a chunking technique, remain effective even in dimensions as high as 100.
 
 Result all
 ```
