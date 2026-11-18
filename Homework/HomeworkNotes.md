@@ -1287,7 +1287,7 @@ Exact gradient at a point $p = [0.5, 1.0, 2.0]$: $\nabla f(x) = [2x_1, 2x_2, 2x_
 Exact integral over $[0, 1]^3$: $\iiint_{[0,1]^3} (x_1^2 + x_2^2 + x_3^2)\,dV = \frac{n}{3} = \frac{3}{3} = 1.0$<br>
 
 1. [3] Gradient (Deterministic - Partial Derivatives): 
-   - It Shifts each axis $i$ by $\pm h$ using unit vectors $e[i] = h$ to calculate the partial derivatives one by one. 
+   - It shifts each axis $i$ by $\pm h$ using unit vectors $e[i] = h$ to calculate the partial derivatives one by one. 
    - Result: [1, 2, 4] vs. exact [1, 2, 4] (The result showing exact same result).
 
 2. [3] grid integ (integrate_nd_grid - Deterministic Grid): 
