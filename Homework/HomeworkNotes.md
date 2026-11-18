@@ -1259,7 +1259,7 @@ Exact integral over $[0, \pi]$: $\int_0^\pi \sin(x)\,dx = [-\cos(x)]_0^\pi = 2$
    - This code uses a numerical approximation of the limit-based definition of a derivative in calculus. However, since computers cannot compute the abstract concept of "approaching zero," we set the limit using $h = 10^{-5}$.
    
 $$
-$$f'(x) \approx \frac{f(x + h) - f(x - h)}{2h}$$
+f'(x) \approx \frac{f(x + h) - f(x - h)}{2h}
 $$
 
    - Result: 0.5403023058569989 vs exact 0.5403023058681398 (accurate to 10 decimal places).
