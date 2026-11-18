@@ -1256,7 +1256,12 @@ Exact derivative at $x = 1$: $f'(1) = \cos(1) \approx 0.5403023058681398$
 Exact integral over $[0, \pi]$: $\int_0^\pi \sin(x)\,dx = [-\cos(x)]_0^\pi = 2$ 
 
 1. [1] derivative (Deterministic - Central Difference): 
-   - Code: $(f(x + h) - f(x - h)) / (2 * h)$ with $h = 10^{-5}$. 
+   - This code uses a numerical approximation of the limit-based definition of a derivative in calculus. However, since computers cannot compute the abstract concept of "approaching zero," we set the limit using $h = 10^{-5}$.
+   
+   $$
+   (f(x + h) - f(x - h)) / (2 * h)$
+   $$
+
    - Result: 0.5403023058569989 vs exact 0.5403023058681398 (accurate to 10 decimal places).
 
 2. [1] Simpson & [1] Trapezoid (Deterministic — Numerical Integration): 
@@ -1272,4 +1277,14 @@ Exact integral over $[0, \pi]$: $\int_0^\pi \sin(x)\,dx = [-\cos(x)]_0^\pi = 2$
    From the code itself, the result shown as 
    - np.float64(2.001853853869716) is an integral estimate (close to `2`)
    - np.float64(0.0030598745539530056) is the *standard error* (the range of uncertainty in random outcomes).
-   
+
+Case for 3D with the result of code:
+```
+n-D: f = sum(x_i^2) on [0,1]^n, grad = 2x, integral = n/3
+```
+Function for $n=3$: $f(x_1, x_2, x_3) = x_1^2 + x_2^2 + x_3^2$ on a unit cube $[0, 1]^3$<br>
+Exact gradient at a point $p = [0.5, 1.0, 2.0]$: $\nabla f(x) = [2x_1, 2x_2, 2x_3] = [1.0, 2.0, 4.0]$<br>
+Exact integral over $[0, 1]^3$: $\iiint_{[0,1]^3} (x_1^2 + x_2^2 + x_3^2)\,dV = \frac{n}{3} = \frac{3}{3} = 1.0$<br>
+1. [3] Gradient (Deterministic - Partial Derivatives): 
+   - Code: Shifts each axis $i$ by $\pm h$ using unit vectors $e[i] = h$ to calculate the partial derivatives one by one. 
+   - Result: [1, 2, 4] vs. exact [1, 2, 4] (exact).
