@@ -1350,7 +1350,7 @@ n=  5  MC = 1.666219 +/- 0.000666  exact = 1.666667
 n=100  MC = 33.331593 +/- 0.002980  exact = 33.333333
 ```
 
-Take a look from Monte Carlo that implement different way. Instead of creating 1 million 100-dimensional points all at once in a single large array, this code processes them in chunks of 100,000 samples over 10 iterations. The sum (s) and the sum of squares (s2) are accumulated incrementally, allowing for the calculation of the mean and the standard error (np.sqrt(var / n_samples)) at the end.
+The Monte Carlo implement different way. Instead of creating 1 million 100-dimensional points all at once in a single large array, this code processes them in chunks of 100,000 samples over 10 iterations. The sum (s) and the sum of squares (s2) are accumulated incrementally, allowing for the calculation of the mean and the standard error (np.sqrt(var / n_samples)) at the end.
 ```py
 while done < n_samples:
      k = min(chunk, n_samples - done)
