@@ -1265,7 +1265,7 @@ $$
    - Result: 0.5403023058569989 vs exact 0.5403023058681398 (accurate to 10 decimal places).
 
 2. [1] Simpson & [1] Trapezoid (Deterministic — Numerical Integration): 
-   - Code: Divides the interval $[0, \pi]$ into $n = 1000$ equally spaced segments. `integrate_simpson` employs a parabolic curve approximation (with weights 1, 4, 2, ..., 1), while `integrate_trapezoid` uses a linear trapezoidal approximation. 
+   - This code divides the interval $[0, \pi]$ into $n = 1000$ equally spaced segments. `integrate_simpson` employs a parabolic curve approximation (with weights 1, 4, 2, ..., 1), while `integrate_trapezoid` uses a linear trapezoidal approximation. 
    - Results: Simpson: 2.0000000000010827 (highly precise, error $10^{-12}$) and Trapezoid: 1.9999983550656624 (error $10^{-6}$).
 
 3. [2] Monte Carlo (mc_integrate_1d)
@@ -1276,7 +1276,7 @@ $$
    ```
    From the code itself, the result shown as 
    - np.float64(2.001853853869716) is an integral estimate (close to `2`)
-   - np.float64(0.0030598745539530056) is the *standard error* (the range of uncertainty in random outcomes).
+   - np.float64(0.0030598745539530056) is the *standard error*
 
 Case for 3D with the result of code:
 ```
@@ -1285,6 +1285,111 @@ n-D: f = sum(x_i^2) on [0,1]^n, grad = 2x, integral = n/3
 Function for $n=3$: $f(x_1, x_2, x_3) = x_1^2 + x_2^2 + x_3^2$ on a unit cube $[0, 1]^3$<br>
 Exact gradient at a point $p = [0.5, 1.0, 2.0]$: $\nabla f(x) = [2x_1, 2x_2, 2x_3] = [1.0, 2.0, 4.0]$<br>
 Exact integral over $[0, 1]^3$: $\iiint_{[0,1]^3} (x_1^2 + x_2^2 + x_3^2)\,dV = \frac{n}{3} = \frac{3}{3} = 1.0$<br>
+
 1. [3] Gradient (Deterministic - Partial Derivatives): 
-   - Code: Shifts each axis $i$ by $\pm h$ using unit vectors $e[i] = h$ to calculate the partial derivatives one by one. 
-   - Result: [1, 2, 4] vs. exact [1, 2, 4] (exact).
+   - It Shifts each axis $i$ by $\pm h$ using unit vectors $e[i] = h$ to calculate the partial derivatives one by one. 
+   - Result: [1, 2, 4] vs. exact [1, 2, 4] (The result showing exact same result).
+
+2. [3] grid integ (integrate_nd_grid - Deterministic Grid): 
+   - It divides each axis into $m = 20$ midpoints (midpoint rule) and combines all axes using `itertools.product(*axes)`. The total number of points calculated is $m^n = 20^3 = 8,000$. 
+   - Result: 0.9993750000000041 vs. the exact value of 1.0.
+
+3. [4] Monte Carlo (mc_integrate_nd)
+   ```py
+   pts = rng.uniform(lower, upper, size=(n, lower.size))  # 200.000 3D points
+   vol = np.prod(upper - lower)  # Volume of a space [0,1]^3 = 1
+   y = f(pts) * vol
+   return y.mean(), y.std(ddof=1) / np.sqrt(n)
+   ```
+   From the code itself, the result shown as 
+   - np.float64(1.0003739846301933) is an integral estimate (close to `1`)
+   - np.float64(0.001155793356015826) is the *standard error* 
+
+Case for 10D with the result of code:
+```
+High dimension: grid is infeasible (20^10 points)
+```
+Function: $f(x_1, \dots, x_{10}) = \sum_{i=1}^{10} x_i^2$ on a hypercube $[0, 1]^{10}$<br>
+Exact integral: $\frac{n}{3} = \frac{10}{3} \approx 3.3333333333333335$<br>
+
+On this code, the grid can't be used properly because there are trillion points to be calculated and will taking many times. So we better use the Monte Carlo methods. It showing effective way and the error is only around 0.0015.
+From the code itself, the result shown as 
+- np.float64(3.334854891073146) is an integral estimate (close to `3.333...`)
+- np.float64(0.002107491092276841) is the *standard error*
+
+Now lets take explanation of the number 5 and 6. The concept still same but now we compare  Monte Carlo and Riemann sum.
+```
+f = lambda X: np.sum(X**2, axis=1)  # x1^2 + ... + xn^2
+grid_m = {1: 1000, 2: 1000, 5: 20, 100: 2}  # points per axis for Riemann
+# Integral of f = sum x_i^2 on [0,1]^n, exact = n/3
+```
+The function being integrated: $f(x_1, x_2, \dots, x_n) = x_1^2 + x_2^2 + \dots + x_n^2$ on a hypercube $[0, 1]^n$.<br>
+Dimensions tested ($n$): $1\text{D}$, $2\text{D}$, $5\text{D}$, and $100\text{D}$.
+Exact results: $\frac{n}{3}$   
+- $n = 1 \rightarrow \frac{1}{3} \approx 0.333333$
+- $n = 2 \rightarrow \frac{2}{3} \approx 0.666667$
+- $n = 5 \rightarrow \frac{5}{3} \approx 1.666667$
+- $n = 100 \rightarrow \frac{100}{3} \approx 33.333333$
+
+Take a look on the Riemann sum result
+```
+=== 5. Riemann sum (f = sum x_i^2, [0,1]^n, exact = n/3) ===
+n=  1  Riemann = 0.333333  exact = 0.333333
+n=  2  Riemann = 0.666667  exact = 0.666667
+n=  5  Riemann = 1.665625  exact = 1.666667
+n=100  Riemann failed: grid needs 2^100 evaluations: infeasible
+```
+The Riemann Sum with an evaluation limit (integral) is a deterministic integration method that divides each dimensional axis into $m$ midpoints, incorporating a safety threshold of 50 million evaluation points to prevent the program from hanging. The Riemann sum performs accurately in low dimensions ($n = 1, 2, 5$), but fails completely at dimension $n = 100$.<br>
+
+Now Monte Carlo result
+```
+=== 6. Monte Carlo (N = 1,000,000) ===
+n=  1  MC = 0.333561 +/- 0.000298  exact = 0.333333
+n=  2  MC = 0.666971 +/- 0.000422  exact = 0.666667
+n=  5  MC = 1.666219 +/- 0.000666  exact = 1.666667
+n=100  MC = 33.331593 +/- 0.002980  exact = 33.333333
+```
+
+Take a look from Monte Carlo that implement different way. Instead of creating 1 million 100-dimensional points all at once in a single large array, this code processes them in chunks of 100,000 samples over 10 iterations. The sum (s) and the sum of squares (s2) are accumulated incrementally, allowing for the calculation of the mean and the standard error (np.sqrt(var / n_samples)) at the end.
+```py
+while done < n_samples:
+     k = min(chunk, n_samples - done)
+     y = f(rng.uniform(low, high, size=(k, low.size))) * vol
+     s += y.sum()
+     s2 += (y**2).sum()
+     done += k
+```
+
+So in conlusion:
+- 1D: The deterministic method (Simpson’s rule) is far more accurate than Monte Carlo. 
+- 3D: Both remain fast and accurate, even though the grid now requires $20^3 = 8,000$ evaluations. 
+- 10D: The grid-based method becomes infeasible ($20^{10}$ points), whereas Monte Carlo continues to perform efficiently using the same number of samples ($200,000$ points).
+
+Result all
+```
+== 1D ==
+[1] derivative : 0.5403023058569989 | exact 0.5403023058681398
+[1] Simpson    : 2.0000000000010827 | exact 2
+[1] Trapezoid  : 1.9999983550656624
+[2] Monte Carlo: (np.float64(2.001853853869716), np.float64(0.0030598745539530056))
+
+== 3-D ==
+[3] gradient   : [1. 2. 4.] | exact [1. 2. 4.]
+[3] grid integ : 0.9993750000000041 | exact 1.0
+[4] Monte Carlo: (np.float64(1.0003739846301933), np.float64(0.001155793356015826))
+
+== 10-D Monte Carlo ==
+[4] (np.float64(3.334854891073146), np.float64(0.002107491092276841)) | exact 3.3333333333333335
+
+=== 5. Riemann sum (f = sum x_i^2, [0,1]^n, exact = n/3) ===
+n=  1  Riemann = 0.333333  exact = 0.333333
+n=  2  Riemann = 0.666667  exact = 0.666667
+n=  5  Riemann = 1.665625  exact = 1.666667
+n=100  Riemann failed: grid needs 2^100 evaluations: infeasible
+
+=== 6. Monte Carlo (N = 1,000,000) ===
+n=  1  MC = 0.333561 +/- 0.000298  exact = 0.333333
+n=  2  MC = 0.666971 +/- 0.000422  exact = 0.666667
+n=  5  MC = 1.666219 +/- 0.000666  exact = 1.666667
+n=100  MC = 33.331593 +/- 0.002980  exact = 33.333333
+```
