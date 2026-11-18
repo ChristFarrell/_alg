@@ -1339,7 +1339,7 @@ n=  2  Riemann = 0.666667  exact = 0.666667
 n=  5  Riemann = 1.665625  exact = 1.666667
 n=100  Riemann failed: grid needs 2^100 evaluations: infeasible
 ```
-The Riemann Sum with an evaluation limit (integral) is a deterministic integration method that divides each dimensional axis into $m$ midpoints, incorporating a safety threshold of 50 million evaluation points to prevent the program from hanging. The Riemann sum performs accurately in low dimensions ($n = 1, 2, 5$), but fails completely at dimension $n = 100$.<br>
+The Riemann Sum with an evaluation limit (integral) is a deterministic integration method that divides each dimensional axis into $m$ midpoints, incorporating a safety threshold of 50 million evaluation points to prevent the program from hanging. The Riemann sum can performs in low dimensions ($n = 1, 2, 5$), but fails completely at dimension $n = 100$.<br>
 
 Now Monte Carlo result
 ```
