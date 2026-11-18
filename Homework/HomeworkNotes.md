@@ -1237,3 +1237,39 @@ On this homework, it is a collection of classic computer science puzzles and pat
 
    In the result, the terminal successfully connected 4 cable lines with a total cable length of 72.
    <img src="Homework%209%20041126/gifs/5_ic_routing.gif" width="1500" alt="Alt text describing the GIF">
+
+# [Homework 10]()
+
+This homework was getting helped by AI Claude for understanding.<br>
+AI Claude: 
+
+On this homework, wecompares two approaches in numerical calculus (for derivatives and integrals): 
+- Deterministic Methods (Grid/Finite Difference) divide the space into regular segments. They are highly accurate in low dimensions (1D) but become unfeasible in high dimensions due to an exponential explosion in the number of points (the "curse of dimensionality"). 
+- Monte Carlo methods, by contrast, use random sampling of points to estimate results; while slightly less precise in 1D, they remain fast and efficient even in 10 dimensions.
+
+Case for 1D with the result of code:
+```
+ID: f = sin(x), f'(1) = cos(1), integral over [0, pi] = 2
+```
+Function: $f(x) = \sin(x)$   
+Exact derivative at $x = 1$: $f'(1) = \cos(1) \approx 0.5403023058681398$   
+Exact integral over $[0, \pi]$: $\int_0^\pi \sin(x)\,dx = [-\cos(x)]_0^\pi = 2$ 
+
+1. [1] derivative (Deterministic - Central Difference): 
+   - Code: $(f(x + h) - f(x - h)) / (2 * h)$ with $h = 10^{-5}$. 
+   - Result: 0.5403023058569989 vs exact 0.5403023058681398 (accurate to 10 decimal places).
+
+2. [1] Simpson & [1] Trapezoid (Deterministic — Numerical Integration): 
+   - Code: Divides the interval $[0, \pi]$ into $n = 1000$ equally spaced segments. `integrate_simpson` employs a parabolic curve approximation (with weights 1, 4, 2, ..., 1), while `integrate_trapezoid` uses a linear trapezoidal approximation. 
+   - Results: Simpson: 2.0000000000010827 (highly precise, error $10^{-12}$) and Trapezoid: 1.9999983550656624 (error $10^{-6}$).
+
+3. [2] Monte Carlo (mc_integrate_1d)
+   ```py
+   x = rng.uniform(a, b, n)  # n = 100.000 random points in [0, pi]
+   y = f(x) * (b - a)  # height of the function multiplied by the width of the base
+   return y.mean(), y.std(ddof=1) / np.sqrt(n)
+   ```
+   From the code itself, the result shown as 
+   - np.float64(2.001853853869716) is an integral estimate (close to `2`)
+   - np.float64(0.0030598745539530056) is the *standard error* (the range of uncertainty in random outcomes).
+   
