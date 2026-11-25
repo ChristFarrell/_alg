@@ -1243,7 +1243,7 @@ On this homework, it is a collection of classic computer science puzzles and pat
 This homework was getting helped by AI Claude for understanding.<br>
 AI Claude: https://claude.ai/share/0dab51b5-dfd6-4cf2-9261-20a0a7ce8449
 
-On this homework, wecompares two approaches in numerical calculus (for derivatives and integrals): 
+On this homework, we compares two approaches in numerical calculus (for derivatives and integrals): 
 - Deterministic Methods (Grid/Finite Difference) divide the space into regular segments. They are highly accurate in low dimensions (1D) but become unfeasible in high dimensions due to an exponential explosion in the number of points (the "curse of dimensionality"). 
 - Monte Carlo methods, by contrast, use random sampling of points to estimate results; while slightly less precise in 1D, they remain fast and efficient even in 10 dimensions.
 
@@ -1394,3 +1394,162 @@ n=  2  MC = 0.666971 +/- 0.000422  exact = 0.666667
 n=  5  MC = 1.666219 +/- 0.000666  exact = 1.666667
 n=100  MC = 33.331593 +/- 0.002980  exact = 33.333333
 ```
+
+# [Homework 12](https://github.com/ChristFarrell/_alg/blob/main/Homework/Homework%2011%20251126/)
+
+This homework was getting helped by AI Claude for understanding.<br>
+AI Claude: https://claude.ai/share/e91ca98f-1f6c-4f7c-85a1-b8e0136f63f8
+
+On this homework, we explain about the foundational pillars of computer science and mathematical logic through executable Python demonstrations and theoretical notes, arranged sequentially from mechanical proof systems to computational complexity.
+
+1. Hilbert’s Dream: Mechanical Proof (`01Hilbert_inference_engine.py`)
+David Hilbert asked whether mathematical theorem proving could be completely automated and whether a single formal system could prove every true statement (completeness).
+
+* **Forward-Chaining Inference:** Implements a mechanical prover using **Modus Ponens** ($P$ and $P \Rightarrow Q$ yields $Q$) to deduce new facts from knowledge bases. The engine loops repeatedly until no new facts can be derived:
+  ```python
+  for premises, conclusions in rules:
+      if all(p in facts for p in premises):          # Modus Ponens
+          for c in conclusions:
+              if c not in facts:
+                  facts.add(c)
+                  new_found = True
+  ```
+* **Tautologies as Theorems:** Evaluates truth tables across every possible Boolean assignment (`itertools.product`) to verify propositional axioms and laws like De Morgan's Law:
+  ```python
+  def is_tautology(formula, names):
+      return all(formula(**dict(zip(names, vals)))
+                 for vals in product([False, True], repeat=len(names)))
+  ```
+* **Limitations:** While forward chaining derives specific facts (such as deriving `ostrich` from `flies`, `lays_eggs`, and `long_legs`), it cannot automatically generate general algebraic laws, and Hilbert's dream of complete formal arithmetic is ultimately disproven by Gödel.
+
+
+2. Russell, Peano, and Gödel (`02Godel_incompleteness.py`)
+This module traces the crisis in the foundations of mathematics and Kurt Gödel's 1931 Incompleteness Theorem.
+
+* **Russell's Paradox:** Models sets as membership predicates ($R = \{x \mid x \notin x\}$), demonstrating that evaluating $R(R)$ causes infinite recursion ($\neg R(R)$), proving naive set theory is inconsistent:
+  ```python
+  def russell():
+      R = lambda x: not x(x)
+      sys.setrecursionlimit(200)
+      try:
+          return R(R)
+      except RecursionError:
+          return "no answer: R(R) = not R(R) never settles"
+  ```
+* **Peano Arithmetic:** Constructs natural numbers, addition, and multiplication purely from `ZERO` and a successor wrapper `S(x)` using recursive axioms ($x + 0 = x$ and $x + S(y) = S(x + y)$):
+  ```python
+  ZERO = Nat()
+  S = lambda x: Nat(x)
+
+  def add(x, y):
+      return x if y.pred is None else S(add(x, y.pred))       # axioms 3, 4
+
+  def mul(x, y):
+      return ZERO if y.pred is None else add(mul(x, y.pred), x)  # axioms 5, 6
+  ```
+* **Gödel Numbering & Self-Reference:** Encodes logical formulas into unique integers using prime factorization ($2^{c_1} \cdot 3^{c_2} \cdot 5^{c_3} \dots$) so arithmetic can talk about formulas. By substituting a template's own Gödel number `g` into itself, the code constructs a statement $G$ that mathematically asserts, *"The formula with my own Gödel number is not provable"*:
+  ```python
+  def build_goedel_sentence():
+      template = "not Provable(sub(x,x))"       # T(x): "sub(x,x) is not provable"
+      g = enc(template)                         # the REAL number of the template
+      G = template.replace("x", str(g))         # G = T(g)
+      return template, g, G
+  ```
+  Because $G$ cannot be false without making the system inconsistent, $G$ must be true yet unprovable.
+
+
+3. Lambda Calculus (`03Calculus_lambda_calculus.py`)
+Developed by Alonzo Church, Lambda Calculus defines computation purely through anonymous functions ($\lambda x. M$) and $\beta$-reduction (function application) without built-in numbers, booleans, or loops.
+
+* **Church Encodings:** Booleans are functions that select between two arguments, and natural numbers represent applying a function $f$ to $x$ a total of $n$ times:
+  ```python
+  TRUE  = lambda t: lambda f: t
+  FALSE = lambda t: lambda f: f
+
+  ZERO  = lambda f: lambda x: x
+  SUCC  = lambda n: lambda f: lambda x: f(n(f)(x))
+  ADD   = lambda m: lambda n: n(SUCC)(m)
+  MUL   = lambda m: lambda n: lambda f: m(n(f))
+  ```
+* **Recursion via the Y Combinator:** Because lambda functions have no names, the strict-evaluation fixed-point combinator (`Y`) passes a function to itself to enable recursion for factorials (`FACT`) and Fibonacci numbers (`FIB`):
+  ```python
+  Y = lambda f: (lambda x: f(lambda v: x(x)(v)))(lambda x: f(lambda v: x(x)(v)))
+
+  FACT = Y(lambda self: lambda n:
+           IF(IS_ZERO(n))
+             (lambda _: SUCC(ZERO))                       # 0! = 1
+             (lambda _: MUL(n)(self(PRED(n))))            # n! = n * (n-1)!
+             (NIL))
+  ```
+* **Undecidability:** Highlights Church's 1936 result that no general algorithm can determine whether two lambda expressions are equivalent—the functional counterpart to Turing's Halting Problem.
+
+4. Finite State Machines, Turing Machines & The Halting Problem (`04FSM_turing_machine.py`)
+This script bridges hardware-like state machines with the theoretical limits of computation.
+
+* **Deterministic Finite Automata (DFA):** Recognizes regular languages (such as strings with an even number of `0`s) using fixed states and zero external memory:
+  ```python
+  even_zeros = DFA("even", ["even"], {
+      ("even", "0"): "odd",  ("even", "1"): "even",
+      ("odd",  "0"): "even", ("odd",  "1"): "odd",
+  })
+  ```
+  Using the Myhill-Nerode theorem (`distinct_prefix_classes`), the script proves why DFAs cannot recognize context-free languages like $a^n b^n$: the number of required states grows infinitely with input length.
+* **Turing Machines:** Extends a DFA with an infinite read/write tape and bidirectional movement (`L`, `R`, `-`). The `ANBNCN` machine recognizes $a^n b^n c^n$ by repeatedly crossing out one `a` as `X`, one `b` as `Y`, and one `c` as `Z` across passes:
+  ```python
+  new_state, write, move = self.delta[(state, symbol)]
+  tape[head] = write
+  head += {"L": -1, "R": 1, "-": 0}[move]
+  ```
+* **The Halting Problem:** Uses diagonalization (`make_paradox`) to feed any candidate halting-detector `halts` into an adversarial program that does the exact opposite of what `halts` predicts—proving no Turing machine can decide halting for all programs:
+  ```python
+  def make_paradox(halts):
+      def paradox(program):
+          if halts(program, program):
+              while True:           # predicted to halt  -> loop forever
+                  yield
+          else:
+              return                # predicted to loop  -> halt at once
+              yield
+      return paradox
+  ```
+
+5. Formal Grammars and the Chomsky Hierarchy (`05Chomsky_grammar.py`)
+Noam Chomsky classified formal languages into four nested levels based on the structure of their symbol-rewriting rules (`UPPERCASE` non-terminals expand into `lowercase` terminals).
+
+* **Type 3 (Regular) & Type 2 (Context-Free):** Type 3 uses right-linear rules ($A \to aB \mid a$) matched by Finite Automata, while Type 2 expands single non-terminals ($A \to \gamma$) to handle nested structures like $a^n b^n$ and English syntax trees:
+  ```python
+  regular = G({"S": ["A"], "A": ["a A", "B"], "B": ["b B", "b"]})
+  context_free = G({"S": ["a S b", "a b"]})
+  ```
+* **Type 1 (Context-Sensitive) & Type 0 (Unrestricted):** Type 1 allows rules with surrounding context ($\alpha A \beta \to \alpha \gamma \beta$). By adding a symbol-swapping rule (`"C B": ["B C"]`), the grammar reorders symbols to generate $a^n b^n c^n$, which no context-free grammar can produce:
+  ```python
+  context_sensitive = G({
+      "S":   ["a B C", "a S B C"],
+      "C B": ["B C"],
+      "a B": ["a b"], "b B": ["b b"], "b C": ["b c"], "c C": ["c c"],
+  })
+  ```
+  Type 0 removes all restrictions on production rules ($\alpha \to \beta$), matching the full power of a Turing Machine.
+
+6. Cook’s Theorem, SAT, and P vs NP (`06Cook_sat_np.py` & `06-庫克的證明.md`)
+The final section examines computational complexity—specifically the boundary between problems that are easy to verify and problems that are easy to solve.
+
+* **P vs NP:** **P** consists of problems solvable in polynomial time by a deterministic Turing machine, while **NP** consists of problems whose candidate solutions ("certificates") can be verified in polynomial time (or solved in polynomial time by a Nondeterministic Turing Machine). For SAT, checking an assignment takes one linear pass (`check`), whereas brute-force solving requires $2^n$ attempts (`brute_force_sat`):
+  ```python
+  def check(cnf, assignment):
+      """Verify a certificate: polynomial time (one pass over the formula)."""
+      return all(any(assignment[abs(l)] == (l > 0) for l in clause) for clause in cnf)
+  ```
+* **Reductions:** Demonstrates how to solve problem $A$ by translating its input into problem $B$, running $B$'s solver, and converting the output back (`oa = b2a(b(a2b(ia)))`). Both `06-庫克的證明.md` (using Mixed Integer Programming) and `06Cook_sat_np.py` (using a DPLL SAT solver) solve the **n-queens puzzle** by encoding row, column, and diagonal attacks as constraints:
+  ```python
+  # No two queens on the same row, column, or diagonal (queens_to_sat)
+  if (r1, c1) < (r2, c2) and (r1 == r2 or c1 == c2 or abs(r1 - r2) == abs(c1 - c2)):
+      cnf.append([-var(r1, c1), -var(r2, c2)])
+  ```
+* **The Cook-Levin Theorem:** Proves that **Boolean Satisfiability (SAT)** is **NP-complete** by showing that *any* Nondeterministic Turing Machine computation over $K$ steps and $L$ tape cells can be encoded into a polynomial-sized Conjunctive Normal Form (CNF) formula using three families of Boolean variables:
+  ```python
+  T = lambda i, j, k: var("T", i, j, k)      # cell i holds symbol j at step k
+  H = lambda i, k:    var("H", i, k)         # head at cell i at step k
+  Q = lambda q, k:    var("Q", q, k)         # machine in state q at step k
+  ```
+  Because finding a satisfying assignment simulates an accepting computation path of any NP machine, a polynomial-time SAT solver would immediately solve every problem in NP ($\text{P} = \text{NP}$).
