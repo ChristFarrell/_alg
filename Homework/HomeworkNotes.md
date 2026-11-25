@@ -1422,7 +1422,53 @@ David Hilbert asked whether mathematical theorem proving could be completely aut
   ```
 * **Limitations:** While forward chaining derives specific facts (such as deriving `ostrich` from `flies`, `lays_eggs`, and `long_legs`), it cannot automatically generate general algebraic laws, and Hilbert's dream of complete formal arithmetic is ultimately disproven by Gödel.
 
+As the result, it printed as this:
+```
+05 - Hilbert's Dream: Mechanical Proof (Chapter 1)
+==================================================
+Hilbert asked: can theorem proving be automated, and can it prove EVERYTHING
+that is true (completeness)?  Here is the simplest mechanical prover: forward
+chaining with Modus Ponens
+        P,  P => Q
+        ----------
+             Q
+and a truth-table check showing what a logical "theorem" (tautology) is.
 
+Run:  python 05_inference_engine.py
+
+Knowledge base 1: facts A, B
+  --- round 1 ---
+  A  and  rule  =>  E
+  B  and  rule  =>  F
+  --- round 2 ---
+  E & F  and  rule  =>  H
+  --- round 3 ---
+  nothing new: done.
+  derived H? True
+
+Knowledge base 2: animals  (flies, lays_eggs, long_legs)
+  --- round 1 ---
+  flies & lays_eggs  and  rule  =>  bird
+  bird & long_legs  and  rule  =>  ostrich
+  --- round 2 ---
+  nothing new: done.
+  derived ostrich? True
+
+The Hilbert-style axioms of propositional logic are tautologies:
+  p -> (q -> p)                                 tautology: True
+  (p -> (q -> r)) -> ((p -> q) -> (p -> r))     tautology: True
+  (~p -> ~q) -> (q -> p)                        tautology: True
+
+A law such as De Morgan's is a theorem too:
+  ~(p & q) == (~p | ~q)   tautology: True
+
+Limits
+------
+The engine only derives single facts (like 'H'), not general LAWS such as
+De Morgan's - that needs axioms plus richer rules.  And Goedel (next file)
+showed that for arithmetic, NO fixed set of axioms and rules can derive
+every true statement.  Hilbert's completeness hope fails.0000s
+```
 2. Russell, Peano, and Gödel (`02Godel_incompleteness.py`)
 This module traces the crisis in the foundations of mathematics and Kurt Gödel's 1931 Incompleteness Theorem.
 
@@ -1457,6 +1503,57 @@ This module traces the crisis in the foundations of mathematics and Kurt Gödel'
   ```
   Because $G$ cannot be false without making the system inconsistent, $G$ must be true yet unprovable.
 
+As the result, it printed as this:
+```
+06 - Russell, Peano and Goedel (Chapter 2)
+==========================================
+Three ideas, each with a small demo:
+  1. Russell's paradox  - naive set theory is inconsistent.
+  2. Peano arithmetic   - numbers defined only from 0 and successor S.
+  3. Goedel numbering + self-reference - the trick behind incompleteness.
+
+Run:  python 06_godel_incompleteness.py
+
+1. Russell's paradox
+  R = {x | x not in x};  evaluating 'R in R' -> no answer: R(R) = not R(R) never settles
+  barber consistent if he shaves himself? False
+  barber consistent if he does not?       False
+  -> both assumptions fail: naive set theory needs repair (ZFC).
+
+2. Peano arithmetic from 0 and S only
+  3 + 4 = 7    3 * 4 = 12
+  axiom 1: 0 is never a successor -> True
+  axiom 3: x + 0 = x for x in 0..5 -> True
+  axiom 4: x + S(y) = S(x+y) for x,y in 0..5 -> True
+
+3. Goedel numbering: statements about formulas become statements about numbers
+  '0=0'      -> 12717347482564861054... (78 digits)
+  'Ax x=x'   -> 62872582070253478854... (398 digits)
+  (decoding recovers the formula, so a number can 'talk about' a formula)
+
+  template T(x) = not Provable(sub(x,x))
+  g = godel number of T  = 413187...5177  (53 digits)
+  G = T(g)               = not Provable(sub(413187...5177,413187...5177))
+  the number inside G's claim, sub(g,g)  = 118332...8937
+  the godel number of G itself            = 118332...8937
+  equal? -> True
+  So G literally says: 'the formula with MY OWN number is not provable'.
+
+Why that matters (Goedel 1931)
+------------------------------
+(The code above checks the self-reference. The next paragraph is the theorem
+itself, which cannot be run - it is a statement about every consistent system.)
+
+If the system proves G, then it proves something false (G says it is unprovable),
+so the system would be inconsistent.  If it is consistent, G is true but
+unprovable.  Hence any consistent system containing Peano arithmetic has true
+statements it cannot prove.  Compare: Turing's halting proof uses the same
+diagonal self-reference (see 04_turing_machine.py).
+
+Note: Goedel's COMPLETENESS theorem (1929) is about first-order logic alone and
+is not contradicted - adding Peano arithmetic is what makes proving
+'Provable' expressible.
+```
 
 3. Lambda Calculus (`03Calculus_lambda_calculus.py`)
 Developed by Alonzo Church, Lambda Calculus defines computation purely through anonymous functions ($\lambda x. M$) and $\beta$-reduction (function application) without built-in numbers, booleans, or loops.
@@ -1482,6 +1579,47 @@ Developed by Alonzo Church, Lambda Calculus defines computation purely through a
              (NIL))
   ```
 * **Undecidability:** Highlights Church's 1936 result that no general algorithm can determine whether two lambda expressions are equivalent—the functional counterpart to Turing's Halting Problem.
+
+As the result, it printed like this:
+```
+03 - Lambda Calculus (Alonzo Church)
+====================================
+The whole language has only two ingredients:
+    (lambda x. M)     an anonymous function
+    (M N)             applying M to N
+and one computation rule, beta-reduction:   (lambda x. M) N  ->  M[x := N]
+
+There are NO built-in booleans, numbers, or lists.  Everything is encoded
+with functions.  Python lambdas are close enough to run these encodings.
+
+Run:  python 03_lambda_calculus.py
+
+Booleans
+  IF TRUE  'yes' 'no' = yes
+  IF FALSE 'yes' 'no' = no
+  AND(T,F) = False   OR(T,F) = True   NOT(T) = False
+
+Arithmetic on Church numerals
+  2 + 3  = 5
+  2 * 3  = 6
+  2 ^ 3  = 8
+  3 - 2  = 1
+  is 0 zero? True    is 3 zero? False
+
+Pairs and lists
+  FIRST(pair) = left   SECOND(pair) = right
+  list [1,2,3] -> [1, 2, 3]
+
+Recursion via the Y combinator (no function has a name!)
+  5!      = 120
+  fib(10) = 55
+
+Church's negative result (1936)
+-------------------------------
+There is no algorithm that decides whether two lambda terms are
+beta-convertible (equal).  Deciding whether two functions behave the same
+is impossible in general - a sibling of Turing's halting problem.
+```
 
 4. Finite State Machines, Turing Machines & The Halting Problem (`04FSM_turing_machine.py`)
 This script bridges hardware-like state machines with the theoretical limits of computation.
@@ -1513,6 +1651,109 @@ This script bridges hardware-like state machines with the theoretical limits of 
       return paradox
   ```
 
+As the result, it printed like this:
+```
+04 - Finite State Machine  ->  Turing Machine  ->  Halting Problem
+===================================================================
+Part 1  A finite state machine (DFA) has states but no memory.  It recognises
+        REGULAR languages only (Chomsky Type 3).
+Part 2  Add an unbounded tape the machine can read AND write, and you get a
+        Turing machine:  Turing machine = finite state machine + tape.
+        Formally (Q, Sigma, Gamma, delta, q0, q_accept, q_reject) with
+            delta : Q x Gamma -> Q x Gamma x {L, R, -}
+        The tape is memory, so it can recognise a^n b^n c^n and, by the
+        Church-Turing thesis, anything computable.
+Part 3  Even so, some questions no Turing machine can answer: the halting problem.
+
+Run:  python 04_fsm_and_turing_machine.py
+
+======================================================================
+PART 1 - Finite state machines
+======================================================================
+
+Even number of 0s
+  ''           -> True   (matches regex too)
+  '1'          -> True   (matches regex too)
+  '0'          -> False   (matches regex too)
+  '010'        -> True   (matches regex too)
+  '1001'       -> True   (matches regex too)
+  '10100'      -> False   (matches regex too)
+
+a*
+  ''           -> True   (matches regex too)
+  'a'          -> True   (matches regex too)
+  'aaaa'       -> True   (matches regex too)
+  'ab'         -> False   (matches regex too)
+
+a+ b+
+  'ab'         -> True   (matches regex too)
+  'aabbb'      -> True   (matches regex too)
+  'a'          -> False   (matches regex too)
+  'ba'         -> False   (matches regex too)
+  'abab'       -> False   (matches regex too)
+
+Trace of even_zeros on '1001':
+    even --1--> even
+    even --0--> odd
+    odd --0--> even
+    even --1--> even
+
+Why a DFA cannot recognise a^n b^n  (computed, Myhill-Nerode)
+  Two prefixes are 'different' if some suffix accepts one but not the other.
+  A DFA needs at least one state per mutually-different prefix.
+    N=1  a^n b^n needs >=  3 states   |   even-0s needs >= 2
+    N=2  a^n b^n needs >=  5 states   |   even-0s needs >= 2
+    N=3  a^n b^n needs >=  7 states   |   even-0s needs >= 2
+    N=4  a^n b^n needs >=  9 states   |   even-0s needs >= 2
+    N=5  a^n b^n needs >= 11 states   |   even-0s needs >= 2
+    N=6  a^n b^n needs >= 13 states   |   even-0s needs >= 2
+  The a^n b^n bound grows without limit; even-0s stays at 2 (our 2-state DFA).
+
+======================================================================
+PART 2 - From FSM to Turing machine
+======================================================================
+  even_zeros rebuilt as a Turing machine, compared on 511 strings: identical = True
+  (An FSM is a Turing machine that never writes and only moves right.)
+
+  With writing and moving left, we can do what no FSM can: a^n b^n c^n
+    ''             -> accept
+    'abc'          -> accept
+    'aabbcc'       -> accept
+    'aaabbbccc'    -> accept
+    'ab'           -> reject
+    'aabbc'        -> reject
+    'abcabc'       -> reject
+    'abcc'         -> reject
+    'cba'          -> reject
+
+  Trace on 'abc':
+    step   0  state=q0      head= 0  tape=abc
+    step   1  state=q1      head= 1  tape=Xbc
+    step   2  state=q2      head= 2  tape=XYc
+    step   3  state=q3      head= 1  tape=XYZ
+    step   4  state=q3      head= 0  tape=XYZ
+    step   5  state=q0      head= 1  tape=XYZ
+    step   6  state=q4      head= 2  tape=XYZ
+    step   7  state=q4      head= 3  tape=XYZ
+
+======================================================================
+PART 3 - What no Turing machine can do
+======================================================================
+A Turing machine that never halts on 'a':
+  running with a 1000-step limit -> timeout
+
+Candidate halting-deciders, each attacked by its own paradox program:
+  always answers True          predicts halts | paradox(paradox) really loops forever | wrong: True
+  always answers False         predicts loops | paradox(paradox) really halts         | wrong: True
+  simulate 1000 steps          -> crashed (RecursionError): it cannot even answer for paradox
+
+Why a step budget cannot work: 'slow' halts, 'forever' does not.
+  budget      1,000:  slow -> running   forever -> running
+  budget    100,000:  slow -> running   forever -> running
+  budget 10,000,000:  slow -> halted    forever -> running
+  At small budgets the two look identical; no fixed budget works for all programs.
+```
+
 5. Formal Grammars and the Chomsky Hierarchy (`05Chomsky_grammar.py`)
 Noam Chomsky classified formal languages into four nested levels based on the structure of their symbol-rewriting rules (`UPPERCASE` non-terminals expand into `lowercase` terminals).
 
@@ -1530,6 +1771,68 @@ Noam Chomsky classified formal languages into four nested levels based on the st
   })
   ```
   Type 0 removes all restrictions on production rules ($\alpha \to \beta$), matching the full power of a Turing Machine.
+
+As the result, it printed like this:
+```
+02 - Formal Grammars and the Chomsky Hierarchy
+==============================================
+A grammar generates a language by repeatedly rewriting symbols using rules.
+
+  Type 3  Regular            A -> aB | a            machine: finite automaton   e.g. a^n b^m
+  Type 2  Context-free       A -> gamma             machine: pushdown automaton e.g. a^n b^n
+  Type 1  Context-sensitive  aAb -> a gamma b       machine: linear-bounded TM  e.g. a^n b^n c^n
+  Type 0  Unrestricted       alpha -> beta          machine: Turing machine
+
+Convention used here: UPPERCASE symbols are non-terminals (they must be rewritten),
+lowercase symbols are terminals (the final output).
+
+Run:  python 02_grammar.py
+
+English sentences (context-free):
+   a dog eats the cat
+   the dog chases a dog
+   a cat chases the dog
+
+One derivation, step by step (a^n b^n):
+    S
+    a S b
+    a a S b b
+    a a a S b b b
+    a a a a b b b b
+
+One derivation of a^n b^n c^n (watch the C B -> B C swaps):
+    S
+    a S B C
+    a a S B C B C
+    a a S B B C C
+    a a a S B C B B C C
+    a a a S B B C B C C
+    a a a a S B C B B C B C C
+    a a a a a B C B C B B C B C C
+    a a a a a B C B C B B B C C C
+    a a a a a b C B C B B B C C C
+    a a a a a b C B B C B B C C C
+    a a a a a b C B B B C B C C C
+    a a a a a b B C B B C B C C C
+    a a a a a b B C B B B C C C C
+    a a a a a b B B C B B C C C C
+    a a a a a b b B C B B C C C C
+    a a a a a b b b C B B C C C C
+    a a a a a b b b B C B C C C C
+    a a a a a b b b B B C C C C C
+    a a a a a b b b b B C C C C C
+    a a a a a b b b b b C C C C C
+    a a a a a b b b b b c C C C C
+    a a a a a b b b b b c c C C C
+    a a a a a b b b b b c c c C C
+    a a a a a b b b b b c c c c C
+    a a a a a b b b b b c c c c c
+
+Checking generated strings against recognisers:
+  a^n b^m      ['b', 'aabbbbbbbb', 'ab', 'abbbb', 'aaaaabb']  all valid: True
+  a^n b^n      ['ab', 'ab', 'ab', 'aaabbb', 'ab']  all valid: True
+  a^n b^n c^n  ['aaabbbccc', 'abc', 'abc', 'abc', 'aabbcc']  all valid: True
+```
 
 6. Cook’s Theorem, SAT, and P vs NP (`06Cook_sat_np.py` & `06-庫克的證明.md`)
 The final section examines computational complexity—specifically the boundary between problems that are easy to verify and problems that are easy to solve.
@@ -1553,3 +1856,77 @@ The final section examines computational complexity—specifically the boundary 
   Q = lambda q, k:    var("Q", q, k)         # machine in state q at step k
   ```
   Because finding a satisfying assignment simulates an accepting computation path of any NP machine, a polynomial-time SAT solver would immediately solve every problem in NP ($\text{P} = \text{NP}$).
+  
+  As the result, it printed like this:
+  ```
+  07 - Cook, SAT, P vs NP and Reductions (Chapter 6)
+==================================================
+  P   : problems a deterministic machine SOLVES in polynomial time.
+  NP  : problems whose answer can be CHECKED in polynomial time
+        (equivalently, solved by a nondeterministic machine in poly time).
+  Cook (1971): SAT is NP-complete - every NP problem reduces to SAT.
+  So a fast SAT solver would give a fast solver for ALL of NP (P = NP).
+
+Run:  python 07_cook_sat_np.py
+
+1. Checking vs solving: (x or y) and (x or not z)
+  assignment (0, 1, 1) -> False   (instant to verify)
+  assignment (0, 1, 0) -> True   (instant to verify)
+  brute-force solution: {1: False, 2: True, 3: False}
+
+  Brute force time vs number of variables (hard formula, no solution):
+    n=10    0.006s
+    n=14    0.077s
+    n=18    1.044s
+    n=20    4.364s
+  measured speed: about 240,275 assignments/second
+  growth per +1 variable (n=18 -> 20): x2.04
+  1024 variables = 2^1024 (a 309-digit number) tries
+  at this speed: about 10^295 years (the universe is ~1.4 x 10^10 years old)
+
+2. Reduction: solve 6-queens by turning it into SAT
+  6-queens became a SAT formula with 36 variables and 296 clauses
+  . Q . . . . 
+  . . . Q . . 
+  . . . . . Q 
+  Q . . . . . 
+  . . Q . . . 
+  . . . . Q . 
+  independently verified (6 queens, no shared row/col/diagonal): True
+  The solver knows nothing about chess - the reduction did the translation.
+
+3. Subset sum: a certificate is checked instantly
+  numbers=[3, 34, 4, 12, 5, 2] target=9 -> pick [4, 5]
+  verify: True
+
+4. Cook-Levin on a real nondeterministic machine (accepts strings containing '11')
+  input 0110: formula has 298 vars, 998 clauses -> SAT=True   machine accepts=True   agree: True
+  accepting computation recovered from the satisfying assignment:
+    step 0: state=q0  head=0  tape=0110_
+    step 1: state=q0  head=1  tape=0110_
+    step 2: state=q1  head=2  tape=0110_
+    step 3: state=qa  head=2  tape=0110_
+    step 4: state=qa  head=2  tape=0110_
+    step 5: state=qa  head=2  tape=0110_
+  input 1011: formula has 298 vars, 998 clauses -> SAT=True   machine accepts=True   agree: True
+  input 1010: formula has 298 vars, 998 clauses -> SAT=False   machine accepts=False   agree: True
+  input 0101: formula has 298 vars, 998 clauses -> SAT=False   machine accepts=False   agree: True
+
+  Formula size as the computation grows (K steps, L cells), measured:
+    K=L= 4:    195 variables,     634 clauses
+    K=L= 8:    739 variables,    2636 clauses
+    K=L=16:   2883 variables,   11536 clauses
+    K=L=32:  11395 variables,   54296 clauses
+  clause growth per doubling of K and L: x4.2, x4.4, x4.7
+  The factor drifts toward 8 (= 2^3): the size is cubic, dominated by the K*L^2
+  pairwise 'at most one head position' clauses.  A polynomial has a fixed factor like
+  this per doubling; an exponential formula would square its size instead.
+
+What the code shows vs. what it cannot show
+-------------------------------------------
+Shown by running: the formula grows polynomially with K and L, and it is
+satisfiable exactly when the machine accepts, so a SAT solver "runs" the
+nondeterministic machine.  Cook's theorem is the claim that this works for
+EVERY NP machine and input; that general proof is mathematics, not a program.
+Whether SAT can be solved in polynomial time (P = NP) is still open.
+```
